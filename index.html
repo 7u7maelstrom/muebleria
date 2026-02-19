@@ -37,6 +37,11 @@ footer{background:#8b5e3c;color:white;text-align:center;padding:15px;}
     <p>Muebles elegantes para tu hogar</p>
 </header>
 
+<div id="carritoBar" style="position:sticky;top:0;background:#222;color:white;padding:10px;text-align:center;z-index:1000">
+🛒 Carrito: <span id="items">0</span> productos | Total: $<span id="total">0</span> MXN 
+<button onclick="pagar()" style="margin-left:10px;padding:6px">Pagar</button>
+</div>
+
 <nav>
     <a href="#inicio">Inicio</a>
     <a href="#productos">Productos</a>
@@ -142,8 +147,27 @@ footer{background:#8b5e3c;color:white;text-align:center;padding:15px;}
 </footer>
 
 <script>
-function mensaje(){
-    alert("Mensaje enviado correctamente");
+let total=0;
+let items=0;
+
+document.querySelectorAll('.producto button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        let precio=btn.parentElement.querySelector('p').innerText;
+        precio=parseInt(precio.replace(/[^0-9]/g,''));
+        total+=precio;
+        items++;
+        document.getElementById('total').innerText=total;
+        document.getElementById('items').innerText=items;
+        alert('Producto agregado al carrito');
+    });
+});
+
+function pagar(){
+    if(total==0){alert('El carrito está vacío');return;}
+    alert('Pago simulado exitoso. Total pagado: $'+total+' MXN');
+    total=0;items=0;
+    document.getElementById('total').innerText=0;
+    document.getElementById('items').innerText=0;
 }
 </script>
 
